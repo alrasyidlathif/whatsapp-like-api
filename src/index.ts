@@ -19,6 +19,8 @@ class App {
         this.app.route('/').get((req: Request, res: Response) => {
             res.send(`welcome to whatsapp like api!`)
         })
+
+        this.app.use('/api/v1/messages', )
     }
 }
 
