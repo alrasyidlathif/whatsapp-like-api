@@ -1,4 +1,5 @@
 import express, {Application, Request, Response} from 'express'
+import config from './configs/env-config'
 
 class App {
     public app: Application
@@ -22,7 +23,7 @@ class App {
 }
 
 const app = new App().app
-const port: number = Number(3000)
+const port: number = Number(config.PORT)
 
 app.listen(port, () => {
     console.log(`listen to port ${port}`)
