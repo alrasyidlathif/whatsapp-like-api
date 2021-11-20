@@ -1,5 +1,6 @@
 import express, {Application, Request, Response} from 'express'
 import config from './configs/env-config'
+import messageRouter from './routers/message-router'
 
 class App {
     public app: Application
@@ -20,7 +21,7 @@ class App {
             res.send(`welcome to whatsapp like api!`)
         })
 
-        this.app.use('/api/v1/messages', )
+        this.app.use('/api/v1/messages', messageRouter)
     }
 }
 
