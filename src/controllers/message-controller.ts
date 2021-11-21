@@ -9,7 +9,16 @@ class MessageController{
     }
 
     public sendMessage = async (req: Request, res: Response): Promise<Response> => {
-        return res.send('send message')
+        try {
+            const result = await this.model.postMessage('a', 'b', 'test dari API nih', null)
+            if (result < 1) {
+                return res.status(500).send('no row inserted')
+            }
+            return res.status(200).send('OK')
+        } catch (error) {
+            console.log(error)
+            return res.status(500).send('error')
+        }
     }
 
     public getMessages = async (req: Request, res: Response): Promise<Response> => {
@@ -23,7 +32,13 @@ class MessageController{
     }
 
     public getAllMessages = async (req: Request, res: Response): Promise<Response> => {
-        return res.send('get all message')
+        try {
+            const result = await this.model.fetchAllMessage('a')
+            return res.status(200).send(result)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).send('error')
+        }
     }
 }
 
