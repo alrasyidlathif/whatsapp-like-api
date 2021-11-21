@@ -25,8 +25,10 @@ class MessageModel implements IModel {
     fetchAllMessage(userId: string): Promise<IMessages> {
         throw new Error("Method not implemented.");
     }
-    
+
     postMessage(sender: string, receiver: string): Promise<Boolean> {
         throw new Error("Method not implemented.");
     }
 }
+
+export default new MessageModel()
