@@ -1,5 +1,7 @@
 # pre-requisite
 1. installed SQL SERVER
+2. npm
+3. node.js
 
 # execute this query on SQL Server to create MESSAGES table
 CREATE TABLE MESSAGES (
@@ -11,3 +13,12 @@ CREATE TABLE MESSAGES (
   reply_on_id int NULL
 );
 
+# on CMD/terminal open project folder then run
+> npm install
+
+# in project folder create your .env file
+PORT={your-api-port}
+DB_USER={your-user-for-login-db}
+DB_PASSWORD={your-password-for-login-db}
+DB_NAME={your-db-name}
+DB_HOST={your-db-host}
