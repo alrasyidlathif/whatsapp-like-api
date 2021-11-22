@@ -62,6 +62,25 @@ class MessageModel implements IModel {
             throw new Error(error)
         }
     }
+
+    async fetchMessageWithId(userId1: string, userId2: string, msgId: number): Promise<number> {
+        try {
+            await db.getPoolConnect()
+            const request = db.getPool().request()
+            request.input('userId1', userId1)
+            request.input('userId2', userId2)
+            request.input('msgId', msgId)
+            const result: IResult<IBaseMessages> = await request.query(`
+                SELECT * FROM MESSAGES
+                WHERE ((from_user = @userId1 AND to_user = @userId2) OR
+                    (from_user = @userId2 AND to_user = @userId1))
+                    AND id = @msgId
+            `)
+            return result.rowsAffected[0]
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
 }
 
 export default new MessageModel()

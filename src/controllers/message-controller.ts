@@ -14,6 +14,12 @@ class MessageController{
         const message: string = req.body.message
         const repliedId: number | null = req.body.reply_on_id ? req.body.reply_on_id : null
         try {
+            if (repliedId) {
+                const isValidRepliedId = await this.model.fetchMessageWithId(userId1, userId2, repliedId)
+                if (isValidRepliedId < 1) {
+                    return res.status(400).send('invalid replied id')
+                }
+            }
             const result = await this.model.postMessage(userId1, userId2, message, repliedId)
             if (result < 1) {
                 return res.status(500).send('no row inserted')
