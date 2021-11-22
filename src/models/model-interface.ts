@@ -1,4 +1,3 @@
-import { IResult } from 'mssql'
 import {IBaseMessages, IMessages} from '../datas/messages'
 
 interface IModel {

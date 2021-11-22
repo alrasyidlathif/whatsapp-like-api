@@ -14,4 +14,10 @@ export interface IMessages extends IBaseMessages {
 export interface IReturnOfService {
     statusCode: number
     statusMsg: string
+    data?: any
+}
+
+export interface IMultiMessages {
+    user_tag: string
+    messages: IMessages[]
 }

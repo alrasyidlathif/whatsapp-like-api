@@ -2,11 +2,15 @@ import IService from "./service-interface"
 import { IReturnOfService } from "../datas/messages"
 import IModel from "../models/model-interface"
 import messageModel from '../models/message-model'
+import IHelper from "../helpers/helper-interface"
+import messageHelper from "../helpers/message-helper"
 
 class MessageService implements IService {
     private model: IModel
-    constructor(model: IModel) {
+    private helper: IHelper
+    constructor(model: IModel, helper: IHelper) {
         this.model = model
+        this.helper = helper
     }
 
     public postMessage = async (
@@ -28,6 +32,16 @@ class MessageService implements IService {
             throw new Error(error)
         }
     }
+
+    public fetchAllMessage = async (userId: string): Promise<IReturnOfService> => {
+        try {
+            const allMessageData = await this.model.fetchAllMessage(userId)
+            const result = this.helper.restructureAllMessageData(userId, allMessageData)
+            return {statusCode: 200, statusMsg: 'OK', data: result}
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
 }
 
-export default new MessageService(messageModel)
+export default new MessageService(messageModel, messageHelper)

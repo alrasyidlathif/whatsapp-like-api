@@ -42,8 +42,11 @@ class MessageController{
     public getAllMessages = async (req: Request, res: Response): Promise<Response> => {
         const userId1: string = req.params.user_id1
         try {
-            const result = await this.model.fetchAllMessage(userId1)
-            return res.status(200).send(result)
+            const result = await this.service.fetchAllMessage(userId1)
+            if (!result.data) {
+                return res.status(result.statusCode).send(result.statusMsg)
+            }
+            return res.status(result.statusCode).send(result.data)
         } catch (error) {
             console.log(error)
             return res.status(500).send('error')
