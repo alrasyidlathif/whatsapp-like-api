@@ -11,11 +11,8 @@ class MessageController{
     public sendMessage = async (req: Request, res: Response): Promise<Response> => {
         const userId1: string = req.params.user_id1
         const userId2: string = req.params.user_id2
-        if (userId1 === userId2) {
-            return res.status(400).send('both user id are equal')
-        }
         const message: string = req.body.message
-        const repliedId: number | null = req.body.reply_on_id
+        const repliedId: number | null = req.body.reply_on_id ? req.body.reply_on_id : null
         try {
             const result = await this.model.postMessage(userId1, userId2, message, repliedId)
             if (result < 1) {
@@ -31,9 +28,6 @@ class MessageController{
     public getMessages = async (req: Request, res: Response): Promise<Response> => {
         const userId1: string = req.params.user_id1
         const userId2: string = req.params.user_id2
-        if (userId1 === userId2) {
-            return res.status(400).send('both user id are equal')
-        }
         try {
             const result = await this.model.fetchMessage(userId1, userId2)
             return res.status(200).send(result)
