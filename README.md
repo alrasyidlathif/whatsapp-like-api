@@ -22,3 +22,28 @@ DB_USER={your-user-for-login-db}
 DB_PASSWORD={your-password-for-login-db}
 DB_NAME={your-db-name}
 DB_HOST={your-db-host}
+
+# to run unit testing, in project folder run
+> npm test
+
+# to run the api, in project folder run
+> npm start
+
+# documentation
+- to send a message from SENDER to RECEIVER
+method: POST
+url: http://localhost:{PORT}/api/v1/messages/{SENDER}/to/{RECEIVER}
+body (json): {"message":"YOUR MESSAGE"}
+
+- to list all messages between {SENDER} and {RECEIVER}
+method: GET
+url: http://localhost:{PORT}/api/v1/messages/{SENDER}/and/{RECEIVER}
+
+- to send a message from SENDER to RECEIVER (as a reply of a message)
+method: POST
+url: http://localhost:{PORT}/api/v1/messages/{SENDER}/to/{RECEIVER}
+body (json): {"message":"YOUR MESSAGE","reply_on_id":MSG-ID<integer>}
+
+- to list all messages that involve {USER}
+method: GET
+url: http://localhost:{PORT}/api/v1/messages/{USER}
