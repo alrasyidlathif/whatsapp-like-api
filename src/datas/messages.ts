@@ -10,3 +10,8 @@ export interface IBaseMessages {
 export interface IMessages extends IBaseMessages {
     friend_id: number
 }
+
+export interface IReturnOfService {
+    statusCode: number
+    statusMsg: string
+}

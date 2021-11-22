@@ -1,11 +1,16 @@
 import {Request, Response} from 'express'
 import messageModel from '../models/message-model'
+import messageService from '../services/message-service'
 import IModel from '../models/model-interface'
+import IService from '../services/service-interface'
+import { IReturnOfService } from '../datas/messages'
 
 class MessageController{
     private model: IModel
-    constructor(model: IModel) {
+    private service: IService
+    constructor(model: IModel, service: IService) {
         this.model = model
+        this.service = service
     }
 
     public sendMessage = async (req: Request, res: Response): Promise<Response> => {
@@ -14,17 +19,8 @@ class MessageController{
         const message: string = req.body.message
         const repliedId: number | null = req.body.reply_on_id ? req.body.reply_on_id : null
         try {
-            if (repliedId) {
-                const isValidRepliedId = await this.model.fetchMessageWithId(userId1, userId2, repliedId)
-                if (isValidRepliedId < 1) {
-                    return res.status(400).send('invalid replied id')
-                }
-            }
-            const result = await this.model.postMessage(userId1, userId2, message, repliedId)
-            if (result < 1) {
-                return res.status(500).send('no row inserted')
-            }
-            return res.status(200).send('OK')
+            const result: IReturnOfService = await this.service.postMessage(userId1, userId2, message, repliedId)
+            return res.status(result.statusCode).send(result.statusMsg)
         } catch (error) {
             console.log(error)
             return res.status(500).send('error')
@@ -55,4 +51,4 @@ class MessageController{
     }
 }
 
-export default new MessageController(messageModel)
+export default new MessageController(messageModel, messageService)
