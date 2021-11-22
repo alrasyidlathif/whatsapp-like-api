@@ -1,9 +1,23 @@
 # pre-requisite
 1. installed SQL SERVER
-2. npm
-3. node.js
+2. installed npm
+3. installed node.js
 
-# execute this query on SQL Server to create MESSAGES table
+
+# installment
+1. clone this project from repo
+
+2. on CMD/terminal open project folder then run
+> npm install
+
+3. in project folder create your .env file
+PORT={your-api-port}
+DB_USER={your-user-for-login-db}
+DB_PASSWORD={your-password-for-login-db}
+DB_NAME={your-db-name}
+DB_HOST={your-db-host}
+
+4. execute this query on SQL Server to create MESSAGES table
 CREATE TABLE MESSAGES (
   id int PRIMARY KEY IDENTITY,
   message varchar(255) NOT NULL,
@@ -13,21 +27,12 @@ CREATE TABLE MESSAGES (
   reply_on_id int NULL
 );
 
-# on CMD/terminal open project folder then run
-> npm install
-
-# in project folder create your .env file
-PORT={your-api-port}
-DB_USER={your-user-for-login-db}
-DB_PASSWORD={your-password-for-login-db}
-DB_NAME={your-db-name}
-DB_HOST={your-db-host}
-
-# to run unit testing, in project folder run
+5. to run unit testing, in project folder run
 > npm test
 
-# to run the api, in project folder run
+6. to run the api, in project folder run
 > npm start
+
 
 # documentation
 - to send a message from SENDER to RECEIVER
