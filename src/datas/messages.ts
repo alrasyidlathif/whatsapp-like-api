@@ -8,7 +8,7 @@ export interface IBaseMessages {
 }
 
 export interface IMessages extends IBaseMessages {
-    friend_id: number
+    friend_id: string
 }
 
 export interface IReturnOfService {
